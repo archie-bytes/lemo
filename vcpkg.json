@@ -1,0 +1,15 @@
+{
+  "name": "sfml01",
+  "version-string": "0.1.0",
+  "builtin-baseline": "903956eff7cb94774a9e805ff573c000afc43e3e",
+  "dependencies": [
+    "sfml",
+    "nlohmann-json"
+  ],
+  "overrides": [
+    {
+      "name": "sfml",
+      "version": "2.6.2"
+    }
+  ]
+}

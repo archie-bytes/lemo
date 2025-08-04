@@ -1,0 +1,24 @@
+🍋：使用 xattr 解除 macOS 对 SFML 的 .dylib 文件的隔离
+xattr -rd com.apple.quarantine /Users/yourname/Downloads/SFML-2.6.2
+
+
+🍋：修复 SFML 对 freetype 的错误引用：
+brew install freetype
+brew --prefix freetype
+
+install_name_tool -change \
+@rpath/../Frameworks/freetype.framework/Versions/A/freetype \
+/opt/homebrew/opt/freetype/lib/libfreetype.dylib \
+/Users/archie/Public/SFML-2.6.2/lib/libsfml-graphics.2.6.2.dylib
+
+运行时设置路径（或用 CMake 添加 RPATH）
+set(CMAKE_BUILD_RPATH "/opt/homebrew/opt/freetype/lib;/Users/archie/Public/SFML-2.6.2/lib")
+
+验证是否成功：
+otool -L /Users/archie/Public/SFML-2.6.2/lib/libsfml-graphics.2.6.2.dylib
+
+总结：
+brew install freetype
+用 install_name_tool 修正 SFML 中的错误 freetype 路径
+设置 DYLD_LIBRARY_PATH 或使用 CMAKE_BUILD_RPATH
+重新运行你的程序
