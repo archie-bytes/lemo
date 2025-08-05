@@ -1,55 +1,61 @@
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include <iostream>
+#include "actors/hero/hero.h"
 
 int main() {
+    // 窗口
     const int windowWidth = 800;
     const int windowHeight = 600;
-
-    sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Lemooo's Secret");
+    auto mode = sf::VideoMode(windowWidth, windowHeight);
+    auto window = sf::RenderWindow(mode, "Lemooo's Secret");
     window.setFramerateLimit(60);
 
-    // 玩家小球
-    sf::CircleShape player(25.f);
-    player.setFillColor(sf::Color::Black);
-    player.setPosition(50.f, windowHeight - 100.f);
+    // 玩家
+    auto hero = Hero("../assets/gopher.png");
+    hero.setPosition(50.f, windowHeight - 100.f);
 
     // 地面
-    sf::RectangleShape ground(sf::Vector2f(windowWidth, 50));
+    auto size = sf::Vector2f(windowWidth, 50);
+    auto ground = sf::RectangleShape(size);
     ground.setFillColor(sf::Color::Black);
     ground.setPosition(0, windowHeight - 50);
-
-    // 移动速度
-    const float moveSpeed = 10.f;
 
     bool gameWon = false;
 
     while (window.isOpen()) {
+        // 确保窗口可以被正常关闭
         sf::Event event{};
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
         }
 
-        // 玩家移动逻辑
+        // 键盘监听
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-            player.move(-moveSpeed, 0);
+            hero.move(-10.f, 0);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-            player.move(moveSpeed, 0);
+            hero.move(10.f, 0);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+            hero.jump();
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+            hero.attack();
         }
 
-        // 通关检测：小球右边到达窗口右边
-        if (player.getPosition().x + player.getRadius() * 2 >= windowWidth) {
+        // 通关检测
+        if (hero.getPosition().x >= windowWidth) {
             std::cout << "你赢了！通关成功！" << std::endl;
             gameWon = true;
             window.close();
         }
 
-        // 绘制部分
+        // 元素绘制
         window.clear(sf::Color::White);
         window.draw(ground);
-        window.draw(player);
+        window.draw(hero);
         window.display();
     }
 
@@ -60,3 +66,4 @@ int main() {
 
     return 0;
 }
+

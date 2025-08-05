@@ -1,14 +1,29 @@
-//
-// Created by Archie on 2025/8/3.
-//
+#ifndef HERO_H
+#define HERO_H
 
-#ifndef SFML01_HERO_H
-#define SFML01_HERO_H
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Texture.hpp>
 
+class Hero : public sf::Drawable, public sf::Transformable  {
+public:
 
-class hero {
+    explicit Hero(const std::string &imagePath);
+
+    void jump();
+
+    void attack();
+
+private:
+    sf::Texture texture_;
+
+    sf::Sprite sprite_;
+
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 };
 
+#endif
 
-#endif //SFML01_HERO_H
+
