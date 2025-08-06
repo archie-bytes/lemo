@@ -2,8 +2,8 @@
 // Created by Archie on 2025/8/3.
 //
 
-#ifndef SFML01_ENEMY_H
-#define SFML01_ENEMY_H
+#ifndef LEMO_ENEMY_H
+#define LEMO_ENEMY_H
 
 
 class enemy {
@@ -11,4 +11,4 @@ class enemy {
 };
 
 
-#endif //SFML01_ENEMY_H
+#endif //LEMO_ENEMY_H

@@ -17,4 +17,4 @@ cmake --build .
 
 # 2. 执行阶段
 echo -e "🍋\033[32m [LEMO] 开始执行... \033[0m"
-./sfml01
+./lemo
