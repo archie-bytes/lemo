@@ -48,7 +48,7 @@ int main() {
         // 通关检测
         if (hero.getPosition().x >= windowWidth) {
             std::cout << "你赢了！通关成功！" << std::endl;
-            gameWon = true;
+            gameWon = true;g
             window.close();
         }
 
