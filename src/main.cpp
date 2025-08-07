@@ -1,5 +1,5 @@
 #include "actors/hero/hero.h"
-#include "system/game/game.h"
+#include "base/game/game.h"
 
 int main() {
     auto levels = std::array{

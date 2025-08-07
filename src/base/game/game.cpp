@@ -22,6 +22,13 @@ void Game::run() {
     auto hero = Hero("../assets/gopher.png");
     hero.setPosition(50.f, 600 - 100.f);
 
+    float speedX = 0.0f;
+    float velocityY = 0.0f;
+    const float gravity = 0.5f;     // 每帧下落加速度
+    const float jumpStrength = -12.0f; // 跳跃初速度（向上）
+
+    bool isJumping = false;
+
     while (this->window->isOpen()) {
         // 确保窗口可以被正常关闭
         sf::Event event{};
@@ -32,16 +39,37 @@ void Game::run() {
 
         // 键盘监听
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-            hero.move(-10.f, 0);
+            if (!isJumping) {
+                hero.move(-10.f, 0);
+                speedX = -5.f;
+            }
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-            hero.move(10.f, 0);
+            if (!isJumping) {
+                hero.move(10.f, 0);
+                speedX = 5.f;
+            }
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-            hero.jump();
+            if (!isJumping) {
+                velocityY = jumpStrength;  // 给一个向上的速度
+                isJumping = true;
+            }
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
             hero.attack();
+        }
+
+        // 重力机制
+        velocityY += gravity;
+        hero.move(speedX, velocityY);
+
+        // 落地检测
+        if (hero.getPosition().y >= 500) {
+            hero.setPosition(hero.getPosition().x, 500);
+            velocityY = 0;
+            speedX = 0.0f;
+            isJumping = false;
         }
 
         // 通关检测

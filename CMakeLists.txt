@@ -11,9 +11,9 @@ add_executable(lemo src/main.cpp
         src/actors/hero/hero.cpp
         src/actors/hero/hero.h
         src/actors/enemy/index.txt
-        src/system/level/level.cpp
-        src/system/level/level.h
-        src/system/game/game.cpp
-        src/system/game/game.h)
+        src/base/level/level.cpp
+        src/base/level/level.h
+        src/base/game/game.cpp
+        src/base/game/game.h)
 
 target_link_libraries(lemo sfml-graphics sfml-window sfml-system)
